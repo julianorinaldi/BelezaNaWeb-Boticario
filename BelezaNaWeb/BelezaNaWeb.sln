@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BelezaNaWebTest", "BelezaNaWebTest\BelezaNaWebTest.csproj", "{650AC02E-9166-43EC-A2E2-2D11AFB42A03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{02723B6F-A2B6-4844-B0ED-3AFB3BEC5635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02723B6F-A2B6-4844-B0ED-3AFB3BEC5635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02723B6F-A2B6-4844-B0ED-3AFB3BEC5635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{650AC02E-9166-43EC-A2E2-2D11AFB42A03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650AC02E-9166-43EC-A2E2-2D11AFB42A03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{650AC02E-9166-43EC-A2E2-2D11AFB42A03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{650AC02E-9166-43EC-A2E2-2D11AFB42A03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,3 +11,5 @@
 /BelezaNaWeb/.vs/BelezaNaWeb/v16
 /BelezaNaWeb/.vs/BelezaNaWeb/config
 /BelezaNaWeb/BelezaNaWebApplication/BelezaNaWebApplication.csproj.user
+/BelezaNaWeb/BelezaNaWebTest/bin/Debug/netcoreapp3.1
+/BelezaNaWeb/BelezaNaWebTest/obj

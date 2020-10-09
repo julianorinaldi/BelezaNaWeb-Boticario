@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BelezaNaWebDomain;
+﻿using BelezaNaWebDomain;
 using BelezaNaWebDomain.Repositories;
 using BelezaNaWebDomain.Services;
 using System;
