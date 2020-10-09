@@ -10,17 +10,6 @@ namespace BelezaNaWebDomain
         {
         }
 
-        public long Quantity
-        {
-            get
-            {
-                if (Warehouses?.Count > 0)
-                    return Warehouses.Sum(x => x.Quantity);
-
-                return 0;
-            }
-        }
-
         public virtual Product Product { get; set; }
 
         public string ProductId { get; set; }

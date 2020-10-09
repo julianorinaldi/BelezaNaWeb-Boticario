@@ -24,7 +24,7 @@ namespace BelezaNaWebApplication.Persistence.EntityConfigurations
                 .HasColumnName(nameof(Warehouse.Quantity));
 
             builder
-                .Property<WarehouseType>(nameof(Warehouse.Type))
+                .Property<string>(nameof(Warehouse.Type))
                 .UsePropertyAccessMode(PropertyAccessMode.Property)
                 .HasColumnName(nameof(Warehouse.Type));
 

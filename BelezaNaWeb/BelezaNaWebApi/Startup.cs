@@ -1,6 +1,9 @@
+using AutoMapper;
+using BelezaNaWebApi.Model;
 using BelezaNaWebApplication.Persistence.Contexts;
 using BelezaNaWebApplication.Repositories;
 using BelezaNaWebApplication.Services;
+using BelezaNaWebDomain;
 using BelezaNaWebDomain.Repositories;
 using BelezaNaWebDomain.Services;
 using Microsoft.AspNetCore.Builder;
@@ -11,8 +14,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.Swagger;
 using System.IO;
 
 namespace BelezaNaWebApi
@@ -64,6 +65,19 @@ namespace BelezaNaWebApi
 
                 c.IncludeXmlComments(caminhoXmlDoc);
             });
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Product, ProductModel>();
+                cfg.CreateMap<ProductModel, Product>();
+                cfg.CreateMap<InventoryModel, Inventory>();
+                cfg.CreateMap<Inventory, InventoryModel>();
+                cfg.CreateMap<Warehouse, WarehouseModel>();
+                cfg.CreateMap<WarehouseModel, Warehouse>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

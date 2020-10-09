@@ -1,4 +1,5 @@
-﻿using BelezaNaWebDomain;
+﻿using AutoMapper;
+using BelezaNaWebDomain;
 using BelezaNaWebDomain.Repositories;
 using BelezaNaWebDomain.Services;
 using System;
@@ -23,7 +24,7 @@ namespace BelezaNaWebApplication.Services
 
             var productGet = _productRepository.FindByIdAsync(product.SKU.Value);
             if (productGet.Result?.SKU > 0)
-                throw new Exception($"Produto já existente, não é possível adicionar SKU {productGet.Result?.SKU} duplicado!");
+                throw new Exception($"Produto já existente, não é possível adicionar SKU {productGet.Result?.SKU} duplicado! Dois produtos são considerados iguais se os seus skus forem iguais.");
 
             _productRepository.AddAync(product);
         }
@@ -55,8 +56,10 @@ namespace BelezaNaWebApplication.Services
             var productGet = _productRepository.FindByIdAsync(product.SKU.Value);
             if (productGet.Result?.SKU > 0)
             {
-                product.Name = productGet.Result.Name;
-                _productRepository.Update(product);
+                var existsProduct = productGet.Result;
+                existsProduct.Name = product.Name;
+                existsProduct.Inventory = product.Inventory;
+                _productRepository.Update(existsProduct);
             }
             else
                 throw new Exception($"Produto não encontrado com SKU {product?.SKU}!");

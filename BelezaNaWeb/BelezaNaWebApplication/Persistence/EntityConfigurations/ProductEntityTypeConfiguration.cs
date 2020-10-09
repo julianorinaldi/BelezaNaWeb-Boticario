@@ -21,8 +21,6 @@ namespace BelezaNaWebApplication.Persistence.EntityConfigurations
                 .HasColumnName(nameof(Product.Name))
                 .IsRequired();
 
-            builder.Ignore(x => x.IsMarketable);
-
             builder.HasOne<Inventory>(x => x.Inventory)
                    .WithOne(x => x.Product)
                    .HasForeignKey<Inventory>(x => x.ProductId);

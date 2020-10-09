@@ -1,8 +1,11 @@
-﻿using BelezaNaWebDomain;
+﻿using AutoMapper;
+using BelezaNaWebApi.Model;
+using BelezaNaWebDomain;
 using BelezaNaWebDomain.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BelezaNaWebApi.Controllers
@@ -13,47 +16,83 @@ namespace BelezaNaWebApi.Controllers
     {
         private readonly IProductService _productService;
 
-        public ProductController(IProductService productService)
+        private readonly IMapper _mapper;
+
+        public ProductController(IProductService productService, IMapper mapper)
         {
             _productService = productService;
+            _mapper = mapper;
         }
 
-        // GET: api/<ProductController>
         [HttpGet]
-        public async Task<IEnumerable<Product>> Get()
+        public async Task<ActionResult<ProductModel>> Get()
         {
-            return await _productService.ListAsync();
+            var entities = await _productService.ListAsync();
+
+            var models = _mapper.Map<IEnumerable<ProductModel>>(entities);
+
+            return Ok(models);
         }
 
-        // GET api/<ProductController>/5
         [HttpGet("{sku}")]
-        public async Task<Product> Get(long sku)
+        public async Task<ActionResult> Get(long sku)
         {
-            return await _productService.GetProductAsync(sku);
+            var entity = await _productService.GetProductAsync(sku);
+            if (entity == null)
+                return NotFound();
+
+            var model = _mapper.Map<ProductModel>(entity);
+            return Ok(model);
         }
 
-        // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] Product value)
+        public ActionResult Post([FromBody] ProductModel value)
         {
-            _productService.AddProduct(value);
+            try
+            {
+                var entity = _mapper.Map<Product>(value);
+                _productService.AddProduct(entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
         }
 
-        // PUT api/<ProductController>/5
         [HttpPut("{sku}")]
-        public void Put(long sku, [FromBody] Product value)
+        public ActionResult Put(long sku, [FromBody] ProductModel value)
         {
-            if (!(sku > 0) || !(value?.SKU > 0) || (sku != value?.SKU))
-                throw new Exception("SKU incorreto!");
+            try
+            {
+                if (!(sku > 0) || !(value?.SKU > 0) || (sku != value?.SKU))
+                    return BadRequest("SKU incorreto!");
 
-            _productService.UpdateProduct(value);
+                var entity = _mapper.Map<Product>(value);
+                _productService.UpdateProduct(entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
         }
 
-        // DELETE api/<ProductController>/5
         [HttpDelete("{sku}")]
-        public void Delete(long sku)
+        public ActionResult Delete(long sku)
         {
-            _productService.DeleteProduct(sku);
+            try
+            {
+                _productService.DeleteProduct(sku);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
         }
     }
 }
