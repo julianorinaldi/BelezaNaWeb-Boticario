@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/BelezaNaWeb/BelezaNaWebApi/obj
+/BelezaNaWeb/BelezaNaWebApplication/obj
+/BelezaNaWeb/BelezaNaWebDomain/obj
+/BelezaNaWeb/BelezaNaWebApi/bin/Debug/netcoreapp3.1
+/BelezaNaWeb/BelezaNaWebApplication/bin/Debug/netcoreapp3.1
+/BelezaNaWeb/BelezaNaWebDomain/bin/Debug/netcoreapp3.1
+/BelezaNaWeb/.vs/BelezaNaWeb/v16
