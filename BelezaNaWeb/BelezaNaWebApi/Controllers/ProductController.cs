@@ -1,8 +1,6 @@
-﻿using BelezaNaWebApplication.Services;
-using BelezaNaWebDomain;
+﻿using BelezaNaWebDomain;
 using BelezaNaWebDomain.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,7 +27,7 @@ namespace BelezaNaWebApi.Controllers
 
         // GET api/<ProductController>/5
         [HttpGet("{sku}")]
-        public async Task<Product> Get(string sku)
+        public async Task<Product> Get(long sku)
         {
             return await _productService.GetProductAsync(sku);
         }
@@ -43,10 +41,9 @@ namespace BelezaNaWebApi.Controllers
 
         // PUT api/<ProductController>/5
         [HttpPut("{sku}")]
-        public void Put(string sku, [FromBody] Product value)
+        public void Put(long sku, [FromBody] Product value)
         {
-            if (string.IsNullOrWhiteSpace(sku) ||
-                string.IsNullOrWhiteSpace(value?.SKU))
+            if (!(sku > 0) || !(value?.SKU > 0) || (sku != value?.SKU))
                 throw new Exception("SKU incorreto!");
 
             _productService.UpdateProduct(value);
@@ -54,7 +51,7 @@ namespace BelezaNaWebApi.Controllers
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{sku}")]
-        public void Delete(string sku)
+        public void Delete(long sku)
         {
             _productService.DeleteProduct(sku);
         }

@@ -9,7 +9,7 @@ namespace BelezaNaWebDomain.Repositories
 
         Task AddAync(Product product);
 
-        Task<Product> FindByIdAsync(string sku);
+        Task<Product> FindByIdAsync(long sku);
 
         void Update(Product product);
 

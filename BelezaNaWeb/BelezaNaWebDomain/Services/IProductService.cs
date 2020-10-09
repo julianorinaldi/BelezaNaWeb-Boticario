@@ -7,12 +7,12 @@ namespace BelezaNaWebDomain.Services
     {
         Task<IEnumerable<Product>> ListAsync();
 
-        Task<Product> GetProductAsync(string sku);
+        Task<Product> GetProductAsync(long sku);
 
         void AddProduct(Product product);
 
         void UpdateProduct(Product product);
 
-        void DeleteProduct(string sku);
+        void DeleteProduct(long sku);
     }
 }

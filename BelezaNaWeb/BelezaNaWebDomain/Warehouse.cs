@@ -1,18 +1,19 @@
-﻿using System;
+﻿using BelezaNaWebDomain.Entities;
 
 namespace BelezaNaWebDomain
 {
-    public class Warehouse
+    public class Warehouse : EntityBase
     {
-        private string WarehouseId { get; set; }
-
         public Warehouse()
         {
-            WarehouseId = Guid.NewGuid().ToString();
         }
 
         public string Locality { get; set; }
         public long Quantity { get; set; }
         public WarehouseType Type { get; set; }
+
+        public virtual Inventory Inventory { get; set; }
+
+        public string InventoryId { get; set; }
     }
 }

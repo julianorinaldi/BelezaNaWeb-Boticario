@@ -11,7 +11,9 @@ namespace BelezaNaWebApplication.Persistence.EntityConfigurations
         {
             builder.ToTable(nameof(Product));
 
-            builder.HasKey(o => o.SKU);
+            builder.HasKey(o => o.Id);
+
+            builder.HasAlternateKey(o => o.SKU);
 
             builder
                 .Property<String>(nameof(Product.Name))
@@ -19,11 +21,11 @@ namespace BelezaNaWebApplication.Persistence.EntityConfigurations
                 .HasColumnName(nameof(Product.Name))
                 .IsRequired();
 
-            builder.HasOne<Inventory>(o => o.Inventory)
-                .WithOne(x => x.Product)
-                .HasForeignKey<Inventory>(x => x.ProductId);
-
             builder.Ignore(x => x.IsMarketable);
+
+            builder.HasOne<Inventory>(x => x.Inventory)
+                   .WithOne(x => x.Product)
+                   .HasForeignKey<Inventory>(x => x.ProductId);
         }
     }
 }

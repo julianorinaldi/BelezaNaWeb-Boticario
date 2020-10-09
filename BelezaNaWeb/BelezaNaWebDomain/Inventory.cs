@@ -1,33 +1,30 @@
-﻿using System;
+﻿using BelezaNaWebDomain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BelezaNaWebDomain
 {
-    public class Inventory
+    public class Inventory : EntityBase
     {
-        private string Id { get; set; }
-
         public Inventory()
         {
-            Id = Guid.NewGuid().ToString();
         }
 
         public long Quantity
         {
             get
             {
-                if (Warehouses?.Length > 0)
+                if (Warehouses?.Count > 0)
                     return Warehouses.Sum(x => x.Quantity);
 
                 return 0;
             }
         }
 
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         public string ProductId { get; set; }
 
-        public Warehouse[] Warehouses { get; set; }
+        public virtual List<Warehouse> Warehouses { get; set; }
     }
 }

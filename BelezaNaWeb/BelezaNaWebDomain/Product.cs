@@ -1,13 +1,13 @@
-﻿namespace BelezaNaWebDomain
+﻿using BelezaNaWebDomain.Entities;
+
+namespace BelezaNaWebDomain
 {
-    public class Product
+    public class Product : EntityBase
     {
-        public string SKU { get; set; }
+        public long? SKU { get; set; }
         public string Name { get; set; }
 
-        public Inventory Inventory { get; set; }
-
-        public string InventoryId { get; set; }
+        public virtual Inventory Inventory { get; set; }
 
         public bool IsMarketable
         {

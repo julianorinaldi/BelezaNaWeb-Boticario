@@ -18,26 +18,26 @@ namespace BelezaNaWebApplication.Services
 
         public void AddProduct(Product product)
         {
-            if (string.IsNullOrWhiteSpace(product?.SKU))
+            if (!(product?.SKU > 0))
                 throw new Exception("SKU não encontrado!");
 
-            var productGet = _productRepository.FindByIdAsync(product.SKU);
-            if (!string.IsNullOrWhiteSpace(productGet.Result?.SKU))
-                throw new Exception($"Produto já existente, não é possível adicionar SKU {product?.SKU} duplicado!");
+            var productGet = _productRepository.FindByIdAsync(product.SKU.Value);
+            if (productGet.Result?.SKU > 0)
+                throw new Exception($"Produto já existente, não é possível adicionar SKU {productGet.Result?.SKU} duplicado!");
 
             _productRepository.AddAync(product);
         }
 
-        public void DeleteProduct(string sku)
+        public void DeleteProduct(long sku)
         {
             var productGet = _productRepository.FindByIdAsync(sku);
-            if (string.IsNullOrWhiteSpace(productGet.Result?.SKU))
+            if (!(productGet.Result?.SKU > 0))
                 throw new Exception($"Produto não existente, não é possível deletar produto com SKU {sku}!");
 
             _productRepository.Remove(productGet.Result);
         }
 
-        public async Task<Product> GetProductAsync(string sku)
+        public async Task<Product> GetProductAsync(long sku)
         {
             return await _productRepository.FindByIdAsync(sku);
         }
@@ -49,11 +49,11 @@ namespace BelezaNaWebApplication.Services
 
         public void UpdateProduct(Product product)
         {
-            if (!string.IsNullOrWhiteSpace(product?.SKU))
+            if (!(product?.SKU > 0))
                 throw new Exception("Produto incompleto, sem SKU!");
 
-            var productGet = _productRepository.FindByIdAsync(product.SKU);
-            if (!string.IsNullOrWhiteSpace(productGet.Result?.SKU))
+            var productGet = _productRepository.FindByIdAsync(product.SKU.Value);
+            if (productGet.Result?.SKU > 0)
             {
                 product.Name = productGet.Result.Name;
                 _productRepository.Update(product);

@@ -8,15 +8,17 @@ namespace BelezaNaWebApplication.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Inventory> builder)
         {
-            builder.HasKey("Id");
+            builder.ToTable(nameof(Inventory));
 
-            builder.Ignore(x => x.Warehouses);
+            builder.HasKey(o => o.Id);
 
-            builder.Ignore(x => x.Quantity);
-
-            builder.HasOne<Product>(o => o.Product)
+            builder.HasMany<Warehouse>(x => x.Warehouses)
                 .WithOne(x => x.Inventory)
-                .HasForeignKey<Product>(x => x.SKU);
+                .HasForeignKey(x => x.InventoryId);
+
+            builder.HasOne<Product>(x => x.Product)
+                   .WithOne(x => x.Inventory)
+                   .HasForeignKey<Inventory>(x => x.ProductId);
         }
     }
 }

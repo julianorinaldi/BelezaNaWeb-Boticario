@@ -19,9 +19,10 @@ namespace BelezaNaWebApplication.Repositories
             _context.SaveChanges();
         }
 
-        public async Task<Product> FindByIdAsync(string sku)
+        public async Task<Product> FindByIdAsync(long sku)
         {
-            return await _context.Products.FindAsync(sku);
+            var objResult = await _context.Products.FirstOrDefaultAsync(x => x.SKU == sku);
+            return objResult;
         }
 
         public async Task<IEnumerable<Product>> ListAsync()

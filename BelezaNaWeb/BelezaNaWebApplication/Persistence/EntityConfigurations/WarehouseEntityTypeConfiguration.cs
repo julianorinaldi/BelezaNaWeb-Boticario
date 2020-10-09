@@ -9,7 +9,9 @@ namespace BelezaNaWebApplication.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Warehouse> builder)
         {
-            builder.HasKey("WarehouseId");
+            builder.ToTable(nameof(Inventory));
+
+            builder.HasKey(o => o.Id);
 
             builder
                 .Property<String>(nameof(Warehouse.Locality))
@@ -25,6 +27,10 @@ namespace BelezaNaWebApplication.Persistence.EntityConfigurations
                 .Property<WarehouseType>(nameof(Warehouse.Type))
                 .UsePropertyAccessMode(PropertyAccessMode.Property)
                 .HasColumnName(nameof(Warehouse.Type));
+
+            builder.HasOne<Inventory>(x => x.Inventory)
+                .WithMany(x => x.Warehouses)
+                .HasForeignKey(x => x.InventoryId);
         }
     }
 }
